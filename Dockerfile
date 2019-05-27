@@ -7,4 +7,4 @@ RUN sudo chown -R rust:rust .
 
 CMD cargo build --release
 COPY target/x86_64-unknown-linux-musl/release/when-http /
-RUN /when-http
+

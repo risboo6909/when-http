@@ -109,7 +109,7 @@ fn handler(req: Request<Body>) -> BoxFut {
 
 fn main() {
     pretty_env_logger::init();
-    let addr = ([127, 0, 0, 1], 3000).into();
+    let addr = ([0, 0, 0, 0], 3000).into();
 
     let server = Server::bind(&addr)
         .serve(|| service_fn(handler))

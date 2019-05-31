@@ -1,0 +1,19 @@
+version: '3'
+
+services:
+
+  when-http:
+    image: risboo6909/when-http:latest
+    expose:
+      - 3000
+
+  nginx:
+    image: nginx:1.13
+    ports:
+      - 80:80
+    volumes:
+      - ./conf/src:/usr/share/nginx/html
+      - ./conf/nginx.conf:/etc/nginx/nginx.conf
+    depends_on:
+      - when-http
+

@@ -74,7 +74,7 @@ fn handler(req: Request<Body>) -> BoxFut {
             let timezone = parse_timezone(tz_str);
 
             let exact_match = str2bool(hash_query
-                .get("exact")
+                .get("exact_match")
                 .unwrap_or(&String::from("false")));
 
             let merge_dist = hash_query

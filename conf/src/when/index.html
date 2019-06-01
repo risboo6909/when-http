@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>When</title>
+</head>
+<body>
+<h3>Welcome</h3>
+
+When is a natural language date/time parser with pluggable rules written in Rust, it's source code can be found
+<a href="https://github.com/risboo6909/when">here</a>, this server source code can be found
+<a href="https://github.com/risboo6909/when-http">here</a>
+<h3>Try various requests</h3>
+<ul>
+    <li><a href="/when/get?input=tonight at 11:10 pm">tonight at 11:10 pm</a>
+    <li><a href="/when/get?input=at Friday afternoon">at Friday afternoon</a>
+    <li><a href="/when/get?input=the deadline is next tuesday 14:00">the deadline is next tuesday 14:00</a>
+    <li><a href="/when/get?input=drop me a line next wednesday at 2:25 p.m">drop me a line next wednesday at 2:25 p.m</a>
+    <li><a href="/when/get?input=it could be done at 11 am past tuesday">it could be done at 11 am past tuesday</a>
+</ul>
+or pass your own request <a href="/when/get?input=">here</a> handler and see the parse results in JSON format.
+<h3>Supported get-parameters</h3>
+<i>input</i> - input string
+<br><br>
+<i>tz</i> - define a timezone, for instance tz=Europe/Paris (default is Europe/Moscow)
+<br><br>
+<i>exact_match</i> - enable/disable Damerau-Levenshtein analysis, allows to correct simple typos in input (default is disabled)
+<br><br>
+<i>dist</i> - maximum merge distance (default is 5)
+</body>
+</html>

@@ -1,6 +1,6 @@
 use url;
 use futures::future;
-use hyper::{Body, Request, Response, Server, StatusCode, Method};
+use hyper::{Body, Request, Response, Server, StatusCode, Method, header};
 use serde::Serialize;
 use hyper::rt::{self, Future};
 use hyper::service::service_fn;
@@ -15,7 +15,7 @@ struct ServerResponse {
     source_str: String,
     merge_dist: usize,
     timezone: String,
-    excat_match: bool,
+    exact_match: bool,
     result: Result<Vec<String>, DateTimeError>,
 }
 
@@ -89,13 +89,18 @@ fn handler(req: Request<Body>) -> BoxFut {
             let tmp = prepare_result(parser.recognize(&input_str));
             let resp = serde_json::to_string(&ServerResponse {
                 source_str: input_str.clone(),
-                excat_match: exact_match,
                 result: tmp,
                 timezone: tz_str.clone(),
+                exact_match,
                 merge_dist,
             }).unwrap();
 
-            *response.body_mut() = Body::from(resp);
+            response = Response::builder()
+                .status(StatusCode::OK)
+                .header(header::CONTENT_TYPE, "application/json")
+                .body(Body::from(resp))
+                .unwrap();
+
         }
 
         // The 404 Not Found route...

@@ -98,6 +98,7 @@ fn handler(req: Request<Body>) -> BoxFut {
             response = Response::builder()
                 .status(StatusCode::OK)
                 .header(header::CONTENT_TYPE, "application/json")
+                .header(header::ACCESS_CONTROL_ALLOW_ORIGIN, "*")
                 .body(Body::from(resp))
                 .unwrap();
 

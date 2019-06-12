@@ -94,10 +94,12 @@ fn do_parse(hash_query: HashMap<String, String>, into_unix_ts: bool) -> (ParsedQ
         merge_dist,
     };
 
-    let parser = when::parser::Parser::new(Box::new(when::en), timezone, merge_dist,
-                                           exact_match);
+    let parser = when::parser::Parser::new(timezone)
+        .parser(Box::new(when::en))
+        .max_dist(merge_dist)
+        .fuzzy_parse(true);
 
-    (query, prepare_result(parser.recognize(&input_str), into_unix_ts))
+    (query, prepare_result(parser.parse(&input_str), into_unix_ts))
 
 }
 

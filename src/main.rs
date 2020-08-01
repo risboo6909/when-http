@@ -95,7 +95,7 @@ fn do_parse(hash_query: HashMap<String, String>, into_unix_ts: bool) -> (ParsedQ
     };
 
     let parser = when::parser::Parser::new(timezone)
-        .parser(Box::new(when::en))
+        .parser(Box::new(&when::en))
         .max_dist(merge_dist)
         .fuzzy_parse(true);
 
@@ -103,7 +103,7 @@ fn do_parse(hash_query: HashMap<String, String>, into_unix_ts: bool) -> (ParsedQ
 
 }
 
-type BoxFut = Box<Future<Item = Response<Body>, Error = hyper::Error> + Send>;
+type BoxFut = Box<dyn Future<Item = Response<Body>, Error = hyper::Error> + Send>;
 
 fn handler(req: Request<Body>) -> BoxFut {
 
